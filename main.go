@@ -31,13 +31,12 @@ const defaultAuthkey = "auth"
 const defaultProxeusUrl = "http://127.0.0.1:1323"
 const defaultRegisterRetryInterval = 5
 
-
 type configData struct {
-	EmailFrom string
-	EmailTo string
+	EmailFrom    string
+	EmailTo      string
 	EmailSubject string
-	EmailBody string
-	Replacement string
+	EmailBody    string
+	Replacement  string
 }
 
 var configPage *template.Template
@@ -149,7 +148,7 @@ func next(c echo.Context) error {
 		return c.JSON(http.StatusOK, response)
 	}
 
-	config:=getConfig(c)
+	config := getConfig(c)
 
 	err = mailSender.Send(&Email{
 		From:    config.EmailFrom,
@@ -167,7 +166,6 @@ func next(c echo.Context) error {
 	return c.JSON(http.StatusOK, response)
 }
 
-
 func config(c echo.Context) error {
 	id, err := externalnode.NodeID(c)
 	if err != nil {
@@ -178,11 +176,11 @@ func config(c echo.Context) error {
 	err = configPage.Execute(&buf, map[string]string{
 		"Id":           id,
 		"AuthToken":    c.QueryParam(Config.authtoken),
-		"EmailFrom": conf.EmailFrom,
-		"EmailTo": conf.EmailTo,
+		"EmailFrom":    conf.EmailFrom,
+		"EmailTo":      conf.EmailTo,
 		"EmailSubject": conf.EmailSubject,
-		"EmailBody": conf.EmailBody,
-		"Replacement": conf.Replacement,
+		"EmailBody":    conf.EmailBody,
+		"Replacement":  conf.Replacement,
 	})
 	if err != nil {
 		return err
@@ -192,11 +190,11 @@ func config(c echo.Context) error {
 
 func setConfig(c echo.Context) error {
 	conf := &configData{
-		EmailFrom: strings.TrimSpace(c.FormValue("EmailFrom")),
-		EmailTo: strings.TrimSpace(c.FormValue("EmailTo")),
+		EmailFrom:    strings.TrimSpace(c.FormValue("EmailFrom")),
+		EmailTo:      strings.TrimSpace(c.FormValue("EmailTo")),
 		EmailSubject: strings.TrimSpace(c.FormValue("EmailSubject")),
-		EmailBody: strings.TrimSpace(c.FormValue("EmailBody")),
-		Replacement: strings.TrimSpace(c.FormValue("Replacement")),
+		EmailBody:    strings.TrimSpace(c.FormValue("EmailBody")),
+		Replacement:  strings.TrimSpace(c.FormValue("Replacement")),
 	}
 	if conf.EmailFrom == "" || conf.EmailTo == "" || conf.EmailSubject == "" || conf.EmailBody == "" {
 		return c.String(http.StatusBadRequest, "empty fields")
@@ -213,11 +211,11 @@ func getConfig(c echo.Context) *configData {
 	jsonBody, err := externalnode.GetStoredConfig(c, Config.proxeusUrl)
 	if err != nil {
 		return &configData{
-			EmailFrom: "no-reply@proxeus.com",
-			EmailTo: "no-reply@proxeus.com",
+			EmailFrom:    "no-reply@proxeus.com",
+			EmailTo:      "no-reply@proxeus.com",
 			EmailSubject: "Subject",
-			EmailBody: "Hey, this has been sent from the flow on workflow. CHF/XES: %s",
-			Replacement: "CHFXES",
+			EmailBody:    "Hey, this has been sent from the flow on workflow. CHF/XES: %s",
+			Replacement:  "CHFXES",
 		}
 	}
 
@@ -255,7 +253,6 @@ Replacement variable: <input type="text" size="30" name="Replacement" value="{{.
 </body>
 </html>
 `
-
 
 var TestMode bool
 
