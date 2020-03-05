@@ -31,7 +31,7 @@ node-mail-sender:
     restart: unless-stopped
     environment:
       PROXEUS_INSTANCE_URL: http://xes-platform:1323
-      SERVICE_SECRET: secret
+      SERVICE_SECRET: "${PROXEUS_SERVICE_SECRET}"
       SERVICE_PORT: 8013
       REGISTER_RETRY_INTERVAL: 3
       SERVICE_URL: http://node-mail-sender:8013
