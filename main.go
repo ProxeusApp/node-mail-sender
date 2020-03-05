@@ -119,6 +119,8 @@ func main() {
 		g.Use(middleware.JWTWithConfig(conf))
 
 		g.POST("/next", next)
+		g.GET("/config", config)
+		g.POST("/config", setConfig)
 	}
 
 	//Common External Node registration
