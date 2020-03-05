@@ -245,14 +245,14 @@ const configHTML = `
 <html>
 <body>
 <form action="/node/{{.Id}}/config?auth={{.AuthToken}}" method="post">
-Email from: <input type="text" size="30" name="EmailFrom" value="{{.EmailFrom}}">
-Email to: <input type="text" size="30" name="EmailTo" value="{{.EmailTo}}">
-Email subject: <input type="text" size="30" name="EmailSubject" value="{{.EmailSubject}}">
-Email body: <br>
-<textarea id="w3mission" rows="8" cols="80">
+Email from: <input type="text" size="30" name="EmailFrom" value="{{.EmailFrom}}"><br />
+Email to: <input type="text" size="30" name="EmailTo" value="{{.EmailTo}}"><br />
+Email subject: <input type="text" size="30" name="EmailSubject" value="{{.EmailSubject}}"><br />
+Email body: <br />
+<textarea name="EmailBody" rows="8" cols="80">
 {{.EmailBody}}
-</textarea>
-Replacement variable: <input type="text" size="30" name="Replacement" value="{{.Replacement}}">
+</textarea><br />
+Replacement variable: <input type="text" size="30" name="Replacement" value="{{.Replacement}}"><br />
 <input type="submit" value="Submit">
 </form>
 </body>
