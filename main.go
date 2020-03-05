@@ -6,13 +6,13 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"strconv"
 
 	"io/ioutil"
 	"log"
 
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"unicode"
 
@@ -122,6 +122,9 @@ func main() {
 		g.GET("/config", config)
 		g.POST("/config", setConfig)
 	}
+
+	//External Node Specific Initialization
+	parseTemplates()
 
 	//Common External Node registration
 	externalnode.Register(proxeusUrl, serviceName, serviceUrl, jwtsecret, "Send Emails", registerRetryInterval)
